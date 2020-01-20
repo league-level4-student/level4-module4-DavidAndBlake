@@ -22,7 +22,12 @@ public class PolymorphWindow extends JPanel implements ActionListener
     Polymorph bluePoly;
     Polymorph redPoly;
     Polymorph movingMorph;
-	ArrayList<Polymorph> polymorphArray;
+    Polymorph circleMorph;
+    Polymorph mouseMorph;
+    Polymorph imageMorph;
+    Polymorph messageMorph;
+    ArrayList<Polymorph> polymorphArray = new ArrayList<Polymorph>();
+    private Object MessageMorph;
 
     public static void main(String[] args)
     {
@@ -31,15 +36,28 @@ public class PolymorphWindow extends JPanel implements ActionListener
 
     public void buildWindow()
     {
+        bluePoly = new BluePolymorph(130, 130, 30, 30);
+        redPoly = new RedPolymorph(170, 130, 30, 30);
+        movingMorph = new MovingMorph(80,150,30,30);
+        circleMorph = new CircleMorph(150,150,30,30);
+        mouseMorph = new MouseMorph(0,322,20,20);
+        imageMorph = new ImageMorph(300,40,50,50);
+        messageMorph = new MessageMorph(0,50,30,30);
+
         window = new JFrame("IT'S MORPHIN' TIME!");
         window.add(this);
         window.getContentPane().setPreferredSize(new Dimension(500, 500));
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.pack();
+        window.addMouseListener((MessageMorph)messageMorph);
         window.setVisible(true);
-		polymorphArray.add(bluePoly);
-		polymorphArray.add(redPoly);
-		polymorphArray.add(movingMorph);
+        polymorphArray.add(bluePoly);
+        polymorphArray.add(redPoly);
+        polymorphArray.add(movingMorph);
+        polymorphArray.add(circleMorph);
+        polymorphArray.add(mouseMorph);
+        polymorphArray.add(imageMorph);
+        polymorphArray.add(messageMorph);
 //        bluePoly = new BluePolymorph(34, 34, 34,34);
 //        redPoly = new RedPolymorph(194, 34, 34,34);
 //        movingMorph = new MovingMorph(getX(),getY(),getWidth(),getHeight());
@@ -57,14 +75,9 @@ public class PolymorphWindow extends JPanel implements ActionListener
 //        bluePoly.draw(g);
 //        redPoly.draw(g);
 //        movingMorph.draw(g);
-        for (Polymorph p: polymorphArray)
+        for (Polymorph p : polymorphArray)
         {
- bluePoly.draw(g);
- redPoly.draw(g);
- movingMorph.draw(g);
- bluePoly.update();
- redPoly.update();
- movingMorph.update();
+            p.draw(g);
         }
     }
 
@@ -72,8 +85,8 @@ public class PolymorphWindow extends JPanel implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         repaint();
-//        bluePoly.update();
-//        redPoly.update();
-//        movingMorph.update();
+        for (Polymorph p:polymorphArray){
+            p.update();
+        }
     }
 }
